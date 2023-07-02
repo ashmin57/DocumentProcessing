@@ -1,0 +1,43 @@
+<!-- navbar.html -->
+
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+    <div class="container">
+      <!-- Logo -->
+      <a class="navbar-brand" href="{% url 'home' %}">
+        Document
+      </a>
+  
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          {% if user.is_authenticated %}
+            <!-- User profile link -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'profile' %}"> 
+                Welcome, {{ user.username }}
+              </a>
+            </li>
+            <!-- Logout link -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">
+                Logout
+              </a>
+            </li>
+          {% else %}
+            <!-- Login link -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">
+                Login
+              </a>
+            </li>
+            <!-- Register link -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'register' %}">
+                Register
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
