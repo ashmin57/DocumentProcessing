@@ -7,12 +7,72 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <style>
+        .custom-column-padding {
+          padding: 40px;
+          margin: 20px;
+        }
+        .list-container {
+          position: relative;
+          min-height: 100vh;
+         
+        }
+        .list-divider {
+          position: fixed;
+          top: 0;
+          bottom: 0;
+          right: calc(80% - 2px);
+          width: 2px;
+          background-color: rgb(52, 58, 64);
+        }
+    </style>
     <title>Home Page</title>
   </head>
   <body>
     {% include 'nav.html' %}
-    <h1>Home Page</h1>
+
+    {% block content %}
+    <div class="row">
+      <!-- 30% column -->
+      <div class="col-12 col-md-3 custom-column-padding">
+        <div class="list-container">
+          <ul class="list-unstyled">
+            <li><a href="#" class="content-link" data-target="newFile">New File</a></li>
+            <li><a href="#" class="content-link" data-target="extractedData">Extracted Data</a></li>
+          </ul>
+          <div class="list-divider"></div>
+        </div>
+      </div>
+  
+      <!-- Vertical line -->
+      <div class="vertical-line"></div>
+  
+      <!-- 70% column -->
+      <div class="col-12 col-md-9">
+        <div id="content-container">
+          <div id="newFile" class="content-section">
+            {% include 'newFile.html' %}
+          </div>
+          <div id="extractedData" class="content-section" style="display: none;">
+            {% include 'extractedData.html' %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endblock %}
+  
+  {% block scripts %}
+  <script>
+    $(document).ready(function() {
+      $('.content-link').on('click', function(e) {
+        e.preventDefault();
+        var targetDiv = $(this).data('target');
+        $('.content-section').hide();
+        $('#' + targetDiv).show();
+      });
+    });
+  </script>
+  {% endblock %}
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

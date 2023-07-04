@@ -48,3 +48,37 @@ def LogoutPage(request):
 
 def ProfilePage(request):
     return render(request, 'profile.html')
+
+
+def NewFilePage(request):
+    return render(request, 'newFile.html')
+
+
+def ExtractedDataPage(request):
+    return render(request, 'extractedData.html')
+
+
+def handle_file_upload(request):
+    if request.method == 'POST':
+        file = request.FILES['fileInput']
+        # Process the file as needed (e.g., save it to a specific location)
+        # You can access the file data using 'file.read()' or save it to disk using 'file.save(file_path)'
+        # Determine the file type (image or pdf) based on the file extension
+        file_extension = file.name.split('.')[-1].lower()
+        if file_extension in ['jpg', 'jpeg', 'png', 'gif']:
+            file_type = 'image'
+        elif file_extension == 'pdf':
+            file_type = 'pdf'
+        else:
+            file_type = None
+
+        # Set the file_url and file_type variables to pass to the template
+        if file_type:
+            # Assuming the uploaded file is saved to MEDIA_ROOT/uploads/
+            file_url = f"/media/uploads/{file.name}"
+            return render(request, 'newFile.html', {'file_url': file_url, 'file_type': file_type})
+        else:
+            # Handle unsupported file types
+            return render(request, 'newFile.html', {'error': 'Unsupported file type.'})
+
+    return render(request, 'newFile.html')
