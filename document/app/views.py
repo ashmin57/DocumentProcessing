@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+import os
+from django.http import FileResponse
+from django.conf import settings
+
 # Create your views here.
 
 
@@ -82,3 +86,20 @@ def handle_file_upload(request):
             return render(request, 'newFile.html', {'error': 'Unsupported file type.'})
 
     return render(request, 'newFile.html')
+
+
+def download_extracted_data(request):
+    # Path to the extracted CSV file
+    extracted_data_path = os.path.join(
+        settings.MEDIA_ROOT, 'extracted_data.csv')
+
+    # Open the file in binary mode
+    with open(extracted_data_path, 'rb') as file:
+        # Create a FileResponse object
+        response = FileResponse(file)
+        # Set the content type for the response
+        response['Content-Type'] = 'text/csv'
+        # Set the content disposition to force download
+        response['Content-Disposition'] = 'attachment; filename="extracted_data.csv"'
+
+    return response
