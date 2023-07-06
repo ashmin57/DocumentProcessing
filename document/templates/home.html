@@ -37,8 +37,8 @@
       <div class="col-12 col-md-3 custom-column-padding">
         <div class="list-container">
           <ul class="list-unstyled">
-            <li><a href="#" class="content-link" data-target="newFile">New File</a></li>
-            <li><a href="#" class="content-link" data-target="extractedData">Extracted Data</a></li>
+            <li><a href="{% url 'newFile' %}" target="_blank">New File</a></li>
+            <li><a href="{% url 'extractedData'%}" target="_blank">Extracted Data</a></li>
           </ul>
           <div class="list-divider"></div>
         </div>
@@ -49,19 +49,19 @@
   
       <!-- 70% column -->
       <div class="col-12 col-md-9">
-        <div id="content-container">
+        <!-- <div id="content-container">
           <div id="newFile" class="content-section">
             {% include 'newFile.html' %}
           </div>
           <div id="extractedData" class="content-section" style="display: none;">
             {% include 'extractedData.html' %}
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   {% endblock %}
   
-  {% block scripts %}
+  <!-- {% block scripts %}
   <script>
     $(document).ready(function() {
       $('.content-link').on('click', function(e) {
@@ -72,7 +72,7 @@
       });
     });
   </script>
-  {% endblock %}
+  {% endblock %} -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

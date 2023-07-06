@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 import os
 from django.http import FileResponse
 from django.conf import settings
+from .models import Document
 
 # Create your views here.
 
@@ -65,25 +66,16 @@ def ExtractedDataPage(request):
 def handle_file_upload(request):
     if request.method == 'POST':
         file = request.FILES['fileInput']
-        # Process the file as needed (e.g., save it to a specific location)
-        # You can access the file data using 'file.read()' or save it to disk using 'file.save(file_path)'
-        # Determine the file type (image or pdf) based on the file extension
-        file_extension = file.name.split('.')[-1].lower()
-        if file_extension in ['jpg', 'jpeg', 'png', 'gif']:
-            file_type = 'image'
-        elif file_extension == 'pdf':
-            file_type = 'pdf'
-        else:
-            file_type = None
 
-        # Set the file_url and file_type variables to pass to the template
-        if file_type:
-            # Assuming the uploaded file is saved to MEDIA_ROOT/uploads/
-            file_url = f"/media/uploads/{file.name}"
-            return render(request, 'newFile.html', {'file_url': file_url, 'file_type': file_type})
-        else:
-            # Handle unsupported file types
+        # Check if the file type is allowed (pdf, image, or doc)
+        allowed_types = ['pdf', 'jpg', 'jpeg', 'png', 'gif', 'doc', 'docx']
+        file_extension = file.name.split('.')[-1].lower()
+        if file_extension not in allowed_types:
             return render(request, 'newFile.html', {'error': 'Unsupported file type.'})
+
+        # Create a new Document object
+        document = Document(file=file, user=request.user)
+        document.save()
 
     return render(request, 'newFile.html')
 

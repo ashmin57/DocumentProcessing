@@ -24,8 +24,8 @@ urlpatterns = [
     path('home/', views.HomePage, name='home'),
     path('logout/', views.LogoutPage, name='logout'),
     path('profile/', views.ProfilePage, name='profile'),
-    path('newFile/', views.NewFilePage, name='newFile'),
-    path('extractedData/', views.ExtractedDataPage, name='extractedData'),
+    path('home/newFile/', views.NewFilePage, name='newFile'),
+    path('home/extractedData/', views.ExtractedDataPage, name='extractedData'),
     path('download/', views.download_extracted_data,
          name='download_extracted_data'),
 ]
