@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+
+    <title>Extracted Data</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Extracted Data</h1>
+
+        <div>
+            <!-- Display the extracted data -->
+            <h3>Extracted Text:</h3>
+            <pre>{{ extracted_text }}</pre>
+
+            <!-- Form to update the extracted data -->
+            <h3>Update Extracted Data:</h3>
+            <form method="POST">
+                {% csrf_token %}
+                <textarea name="updated_text" rows="5" class="form-control">{{ extracted_text }}</textarea>
+                <br>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+
+        <div>
+            <!-- Download the extracted data -->
+            <h3>Download Extracted Data:</h3>
+            <a href="{% url 'download_extracted_data' %}" class="btn btn-success">Download CSV</a>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
